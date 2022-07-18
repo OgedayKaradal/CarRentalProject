@@ -30,40 +30,24 @@ namespace Business.Concrete
         }
 
         public IResult Update(Brand brand)
-        {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
+        {            
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
 
         public IResult Remove(Brand brand)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
             _brandDal.Remove(brand);
             return new SuccessResult(Messages.BrandRemoved);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
         public IDataResult<Brand> GetByBrandId(int brandId)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<Brand>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId)) ;
         }
     }

@@ -11,6 +11,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -27,7 +28,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-
+            
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
 
@@ -35,66 +36,38 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
 
         public IResult Remove(Car car)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
             _carDal.Remove(car);
             return new SuccessResult(Messages.CarRemoved);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
         }
 
         public IDataResult<Car> GetByCarId(int carId)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<Car>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            if (DateTime.Now.Hour == 05)
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
