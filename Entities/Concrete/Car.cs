@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Core.Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Entities.Concrete
 {
-    class Car
+    public class Car:IEntity
     {
         public int CarId { get; set; }
         public string CarName { get; set; }
