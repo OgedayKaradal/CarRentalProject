@@ -45,6 +45,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarName == carName));
         }
 
+        public IDataResult<List<Car>> GetByPrice(decimal minPrice, decimal maxPrice)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= minPrice && c.DailyPrice <= maxPrice));
+        }
+
         public IResult Update(Car car)
         {
             _carDal.Update(car);

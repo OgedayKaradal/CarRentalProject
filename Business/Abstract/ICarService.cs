@@ -13,6 +13,7 @@ namespace Business.Abstract
         IResult Delete(Car car);
         IDataResult<List<Car>> GetAll();
         IDataResult<List<Car>> GetByName(string carName);
+        IDataResult<List<Car>> GetByPrice(decimal minPrice, decimal maxPrice);
         IDataResult<Car> GetByCarId(int id);
 
     }
