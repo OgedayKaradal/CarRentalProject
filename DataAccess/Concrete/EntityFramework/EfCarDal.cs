@@ -4,12 +4,14 @@ using Entities.DTOs;
 using System.Collections.Generic;
 using Core.DataAccess.EntityFramework;
 using System.Linq;
+using System.Linq.Expressions;
+using System;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, SampleDatabaseContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (SampleDatabaseContext context = new SampleDatabaseContext())
             {
@@ -27,7 +29,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = car.DailyPrice,
                                  Description = car.Description
                              };
-                return result.ToList();
+                return filter == null
+                    ? result.ToList()
+                    : result.Where(filter).ToList();
             }
         }
     }
