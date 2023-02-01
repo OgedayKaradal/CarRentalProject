@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Business.Abstract
         IDataResult<List<Car>> GetByName(string carName);
         IDataResult<List<Car>> GetByPrice(decimal minPrice, decimal maxPrice);
         IDataResult<Car> GetByCarId(int id);
+        IDataResult<List<CarDetailDto>> GetCarDetails();
 
     }
 }
