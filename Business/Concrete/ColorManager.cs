@@ -42,7 +42,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetByName(string colorName)
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorName == colorName));
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorName.Contains(colorName)));
         }
 
         public IResult Update(Color color)

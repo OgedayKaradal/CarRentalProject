@@ -42,7 +42,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetByName(string brandName)
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandName == brandName));
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandName.Contains(brandName)));
         }
 
         public IResult Update(Brand brand)

@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetByName(string carName)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarName == carName));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarName.Contains(carName)));
         }
 
         public IDataResult<List<Car>> GetByPrice(decimal minPrice, decimal maxPrice)
