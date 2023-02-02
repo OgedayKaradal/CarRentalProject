@@ -74,6 +74,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbycarname")]
+        public IActionResult GetByCarName(string carName)
+        {
+            var result = _carService.GetByCarName(carName);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbybrandname")]
         public IActionResult GetByBrandName(string brandName)
         {
@@ -107,10 +118,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyprice")]
-        public IActionResult GetByPrice(int minPrice, int maxPrice)
+        [HttpGet("getbydailyprice")]
+        public IActionResult GetByDailyPrice(int minPrice, int maxPrice)
         {
-            var result = _carService.GetByPrice(minPrice, maxPrice);
+            var result = _carService.GetByDailyPrice(minPrice, maxPrice);
             if (result.Success)
             {
                 return Ok(result);
