@@ -99,7 +99,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbycolorname")]
         public IActionResult GetByColorName(string colorName)
         {
-            var result = _carService.GetByBrandName(colorName);
+            var result = _carService.GetByColorName(colorName);
             if (result.Success)
             {
                 return Ok(result);
