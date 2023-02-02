@@ -107,10 +107,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbydailyprice")]
-        public IActionResult GetByDailyPrice(int minPrice, int maxPrice)
+        [HttpGet("getbyprice")]
+        public IActionResult GetByPrice(int minPrice, int maxPrice)
         {
-            var result = _carService.GetByModelYear(minPrice, maxPrice);
+            var result = _carService.GetByPrice(minPrice, maxPrice);
             if (result.Success)
             {
                 return Ok(result);
