@@ -38,7 +38,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetByBrandName(string brandName)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandName.Contains(brandName)));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandName.ToLower().Contains(brandName.ToLower())));
         }
 
         public IDataResult<Car> GetByCarId(int id)
@@ -48,7 +48,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetByColorName(string colorName)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorName.Contains(colorName)));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorName.ToLower().Contains(colorName.ToLower())));
         }
 
         public IDataResult<List<Car>> GetByModelYear(int minYear, int maxYear)
@@ -58,7 +58,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetByName(string carName)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarName.Contains(carName)));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarName.ToLower().Contains(carName.ToLower())));
         }
 
         public IDataResult<List<Car>> GetByPrice(decimal minPrice, decimal maxPrice)
