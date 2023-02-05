@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -24,6 +25,13 @@ namespace Business.Concrete
         public IResult Add(Car car)
         {
             ValidationTool.Validate(new CarValidator(), car);
+            
+            IResult result = BusinessRules.Run(CheckCarCountOfBrand(car.BrandId), CheckCarCountOfColor(car.ColorId));
+            if (result != null)
+            {
+                return result;
+            }
+            
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
@@ -77,8 +85,36 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             ValidationTool.Validate(new CarValidator(), car);
+
+            IResult result = BusinessRules.Run(CheckCarCountOfBrand(car.BrandId), CheckCarCountOfColor(car.ColorId));
+            if (result != null)
+            {
+                return result;
+            }
+
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
+
+        private IResult CheckCarCountOfBrand(int brandId)
+        {
+            List<Car> cars = _carDal.GetAll(c => c.BrandId == brandId);
+            if (cars.Count >= 100)
+            {
+                return new ErrorResult(Messages.CarCountOfBrandError);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckCarCountOfColor(int colorId)
+        {
+            List<Car> cars = _carDal.GetAll(c => c.ColorId == colorId);
+            if (cars.Count >= 500)
+            {
+                return new ErrorResult(Messages.CarCountOfColorError);
+            }
+            return new SuccessResult();
+        }
+
     }
 }
