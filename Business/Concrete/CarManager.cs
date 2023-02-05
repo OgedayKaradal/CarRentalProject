@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
@@ -22,10 +23,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-            
             IResult result = BusinessRules.Run(CheckCarCountOfBrand(car.BrandId), CheckCarCountOfColor(car.ColorId));
             if (result != null)
             {
@@ -82,10 +82,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-
             IResult result = BusinessRules.Run(CheckCarCountOfBrand(car.BrandId), CheckCarCountOfColor(car.ColorId));
             if (result != null)
             {

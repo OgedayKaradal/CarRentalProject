@@ -10,6 +10,7 @@ using Business.Constants;
 using Core.CrossCuttingConcerns.Validation;
 using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Business;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -21,10 +22,9 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(), color);
-
             IResult result = BusinessRules.Run(CheckColorCount());
             if (result != null)
             {
@@ -56,10 +56,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorName.ToLower().Contains(colorName.ToLower())));
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
-            ValidationTool.Validate(new ColorValidator(), color);
-
             IResult result = BusinessRules.Run(CheckColorCount());
             if (result != null)
             {
